@@ -1,0 +1,28 @@
+[
+    {
+        "speakerName": "リリンちゃん",
+        "speakerUuid": "cb11bdbd-78fc-4f16-b528-a400bae1782d",
+        "styles": [
+            {
+                "styleName": "のーまる",
+                "styleId": 90
+            },
+            {
+                "styleName": "メスガキ",
+                "styleId": 92
+            }
+        ],
+        "version": "2.0.0"
+    },
+    {
+        "speakerName": "つくよみちゃん",
+        "speakerUuid": "3c37646f-3881-5374-2a83-149267990abc",
+        "styles": [
+            {
+                "styleName": "れいせい",
+                "styleId": 0
+            }
+        ],
+        "version": "2.0.0"
+    }
+]

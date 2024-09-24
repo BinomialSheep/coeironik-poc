@@ -8,6 +8,7 @@
 """
 
 import json
+import time
 import requests
 from io import BytesIO
 from pydub import AudioSegment
@@ -22,7 +23,7 @@ SPEAKER_UUID = "cb11bdbd-78fc-4f16-b528-a400bae1782d"
 STYLE_ID = 92
 
 
-def synthesis(text: str) -> bytes:
+def synthesize_audio(text: str) -> bytes:
     """
     COEIROINKに投げて、テキストを音声化する
     TODO：失敗時の例外処理
@@ -52,25 +53,25 @@ def synthesis(text: str) -> bytes:
 
 
 def main():
-    combined_audio = None
+    start_time = time.time()
+    final_audio = AudioSegment.silent(duration=0)
     with open(INPUT_FILE, "r", encoding="utf-8") as f:
-        for line in f:
+        for i, line in enumerate(f):
             line = line.strip()
             if line == "":
                 continue
 
             # テキストを音声化（bytes形式）
-            audio = synthesis(line)
+            audio = synthesize_audio(line)
             # pydub.AudioSegment型
             audio = AudioSegment.from_wav(BytesIO(audio))
-
             # 音声結合
-            if combined_audio == None:
-                combined_audio = audio
-            else:
-                combined_audio += audio
+            final_audio += audio
 
-    combined_audio.export(OUTPUT_FILE, format="wav")
+            elapsed_time = time.time() - start_time
+            print(f"Line {i + 1} processed. Time taken: {elapsed_time:.2f} seconds")
+
+    final_audio.export(OUTPUT_FILE, format="wav")
 
 
 if __name__ == "__main__":
